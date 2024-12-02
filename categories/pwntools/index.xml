@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Pwntools on nan0in&#39;s blog</title>
+        <link>http://localhost:1313/categories/pwntools/</link>
+        <description>Recent content in Pwntools on nan0in&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <copyright>楠牧音nan0in</copyright>
+        <lastBuildDate>Wed, 02 Oct 2024 16:02:31 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/pwntools/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>早期博客</title>
+        <link>http://localhost:1313/p/%E6%97%A9%E6%9C%9F%E5%8D%9A%E5%AE%A2/</link>
+        <pubDate>Wed, 02 Oct 2024 16:02:31 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/%E6%97%A9%E6%9C%9F%E5%8D%9A%E5%AE%A2/</guid>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;ps:在西电终端复盘时发现的一个自己的很弱智的错误：用websocket连接时，忘记修改返回netcat的ip设置导致使用的是127.0.0.1：本机回环地址，只能在本机使用。所以一直无法连接上有线环境而用wscat进行连接，结果就是nc没搞明白，一直以为是自己的问题。修改成192.168.77.1，就可以连接上了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;下载之类的在这里就先不提了，相信很多人在刚开始学的时候会因为没有引导和庞大的信息量而不知所措，之后我会边学边试着整理一些pwn和re的学习笔记，早期写好的博客有一些可能不会放过来，有兴趣的也可以留言讨论。&lt;/p&gt;
+&lt;h1 id=&#34;使用pwntools连接&#34;&gt;使用pwntools连接：
+&lt;/h1&gt;&lt;p&gt;做pwn题过程中，有时会有需要发送一些特殊数值，这些数值无法使用键盘输入，又或是需要填充大量
+的字符，这时就需要使用脚本来代替我们发送payload。
+常用的pwn工具库就是pwntools，是一个python库。这个库既可以在本地启动进程来调试攻击脚本，又
+可以连接远程服务器进行攻击。&lt;/p&gt;
+&lt;p&gt;我们可以在本地调试：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pwn&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;process&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;./filename&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 传入参数为题目的二进制文件。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sendline&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\x00&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# python3 版本的pwntools限定了传入参数为byte类型，即发送字&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;符串时需要在字符串前面加上前缀&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;interactive&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 切换为手动交互模式，即通过键盘输入输出。否则进程会直接退出。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;远程连接与攻击：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;from pwn import *
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;p = remote(&amp;#34;120.0.0.1&amp;#34;, 80) # 传入参数为题目的远程环境的地址和端口。
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;p.sendline(b&amp;#39;\x00&amp;#39;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;p.interactive()
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;pwntools的一些常用发送函数&#34;&gt;pwntools的一些常用发送函数：
+&lt;/h2&gt;&lt;p&gt;send(str: byte) # 仅仅将str发送出去 &lt;br&gt;
+sendline(str: byte) # 在str后面加一\n再发送 &lt;br&gt;
+sendafter(str1: byte, str2: byte) # 后面两个函数在接收到str1后，再发送str2，发送
+部分和上面两个一样,&lt;em&gt;&lt;strong&gt;我比较习惯用下面的sendlineafter函数&lt;/strong&gt;&lt;/em&gt;
+sendlineafter(ste1: byte, str2: byte)&lt;/p&gt;
+&lt;h2 id=&#34;字节串&#34;&gt;字节串：
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;字节串的定义
+字节串通过在字符串前加上小写字母 b 来定义，例如：
+python&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;b&amp;#39;hello&amp;#39;  # 字节串 &amp;#39;hello&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;b&amp;#39;\x01\x02\x03&amp;#39;  # 一个包含字节数据的字节串
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;recvuntil函数&#34;&gt;recvuntil函数：
+&lt;/h2&gt;&lt;p&gt;用法：recvuntil函数通常需要指定一个套接字作为输入参数，以及一个分隔符或长度作为接收数据的终止条件。例如，recvuntil(sock, &amp;lsquo;AAA&amp;rsquo;)会从套接字sock中接收数据，直到接收到字符串AAA为止。
+怎么用呢？我们可以用recvuntil函数来接收数据，直到接收到分隔符为止。这在某些pwn题中运行脚本很有用&lt;/p&gt;
+&lt;h2 id=&#34;recvline函数方法&#34;&gt;recvline函数方法：
+&lt;/h2&gt;&lt;p&gt;.recvline() 方法
+recvline() 方法用于从目标程序（如远程服务、管道、或本地进程）接收一行数据，并且自动处理行的结束符（例如换行符 \n）。这对于读取包含换行符的响应非常有用，因为它可以确保你接收到的是完整的一行数据，而不是部分数据。
+具体来说，recvline() 会：
+从连接中接收数据，直到遇到换行符（\n）为止。
+返回接收到的数据（去除换行符）。&lt;/p&gt;
+&lt;h2 id=&#34;cyclic函数方法&#34;&gt;cyclic函数方法：
+&lt;/h2&gt;&lt;p&gt;cyclic() 的作用
+cyclic() 函数会生成一个包含连续递增字节的字节串，常常用于模拟程序的输入，以确定溢出发生的位置。这个字节串的模式是非常特殊的，通常包含了易于辨认的递增字节，可以帮助攻击者找到覆盖返回地址所需的精确字节偏移量。&lt;/p&gt;
+&lt;p&gt;如何使用 cyclic()
+cyclic() 生成的字节串是为了帮助你 确定栈上的溢出偏移量，通常与其他攻击步骤（如定位返回地址）结合使用。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pwn&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 生成一个长度为 100 字节的字节串&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;payload&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cyclic&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;payload&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;确定溢出偏移量
+通常，cyclic() 用于测试缓冲区溢出时，帮助攻击者确定溢出发生的确切位置。&lt;/p&gt;
+&lt;p&gt;假设你有一个程序，在接收输入时，程序会在栈上分配一个缓冲区。如果你向这个缓冲区发送的数据超出了缓冲区的大小，它就会覆盖栈中的其他数据，尤其是 返回地址。通过观察溢出的数据，你可以确定栈上溢出发生的位置。&lt;/p&gt;
+&lt;p&gt;比如，程序的缓冲区大小为 100 字节，而你希望覆盖 返回地址（通常是紧随缓冲区之后的位置）。你可以先发送一个由 cyclic() 生成的 100 字节的字节串，程序崩溃时，gdb 调试器会帮助你分析溢出发生的位置。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
