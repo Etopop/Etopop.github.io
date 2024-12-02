@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Early Start on nan0in&#39;s blog</title>
-        <link>http://localhost:1313/categories/early-start/</link>
+        <link>https://Etopop.gtihub.io/categories/early-start/</link>
         <description>Recent content in Early Start on nan0in&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>楠牧音nan0in</copyright>
-        <lastBuildDate>Wed, 02 Oct 2024 16:02:31 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/early-start/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 02 Oct 2024 16:02:31 +0800</lastBuildDate><atom:link href="https://Etopop.gtihub.io/categories/early-start/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>早期博客</title>
-        <link>http://localhost:1313/p/%E6%97%A9%E6%9C%9F%E5%8D%9A%E5%AE%A2/</link>
+        <link>https://Etopop.gtihub.io/p/%E6%97%A9%E6%9C%9F%E5%8D%9A%E5%AE%A2/</link>
         <pubDate>Wed, 02 Oct 2024 16:02:31 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E6%97%A9%E6%9C%9F%E5%8D%9A%E5%AE%A2/</guid>
+        <guid>https://Etopop.gtihub.io/p/%E6%97%A9%E6%9C%9F%E5%8D%9A%E5%AE%A2/</guid>
         <description>&lt;blockquote&gt;
 &lt;p&gt;ps:在西电终端复盘时发现的一个自己的很弱智的错误：用websocket连接时，忘记修改返回netcat的ip设置导致使用的是127.0.0.1：本机回环地址，只能在本机使用。所以一直无法连接上有线环境而用wscat进行连接，结果就是nc没搞明白，一直以为是自己的问题。修改成192.168.77.1，就可以连接上了。&lt;/p&gt;
 &lt;/blockquote&gt;

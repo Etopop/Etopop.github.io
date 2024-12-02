@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Pages on nan0in&#39;s blog</title>
-        <link>http://localhost:1313/page/</link>
+        <link>https://Etopop.gtihub.io/page/</link>
         <description>Recent content in Pages on nan0in&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>楠牧音nan0in</copyright>
-        <lastBuildDate>Wed, 13 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/page/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 13 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://Etopop.gtihub.io/page/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>about me</title>
-        <link>http://localhost:1313/about-me/</link>
+        <link>https://Etopop.gtihub.io/about-me/</link>
         <pubDate>Wed, 13 Nov 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/about-me/</guid>
+        <guid>https://Etopop.gtihub.io/about-me/</guid>
         <description>&lt;h1 id=&#34;intro-to-me&#34;&gt;Intro to Me
 &lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;em&gt;Name：Nan Jiang/江楠&lt;/em&gt;&lt;br&gt;
@@ -23,26 +23,26 @@
         </item>
         <item>
         <title>归档</title>
-        <link>http://localhost:1313/archives/</link>
+        <link>https://Etopop.gtihub.io/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/archives/</guid>
+        <guid>https://Etopop.gtihub.io/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>搜索</title>
-        <link>http://localhost:1313/search/</link>
+        <link>https://Etopop.gtihub.io/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/search/</guid>
+        <guid>https://Etopop.gtihub.io/search/</guid>
         <description></description>
         </item>
         <item>
         <title>友链</title>
-        <link>http://localhost:1313/%E5%8F%8B%E9%93%BE/</link>
+        <link>https://Etopop.gtihub.io/%E5%8F%8B%E9%93%BE/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/%E5%8F%8B%E9%93%BE/</guid>
+        <guid>https://Etopop.gtihub.io/%E5%8F%8B%E9%93%BE/</guid>
         <description>&lt;p&gt;To use this feature, add &lt;code&gt;links&lt;/code&gt; section to frontmatter.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;image&lt;/code&gt; field accepts both local and external images.&lt;/p&gt;
 </description>
